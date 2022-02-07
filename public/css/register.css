@@ -1,0 +1,21 @@
+
+
+
+* {
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section .left-content .title {
+    font-size:3rem;
+}
+section .left-content .description {
+    font-size: 1.1rem;
+}

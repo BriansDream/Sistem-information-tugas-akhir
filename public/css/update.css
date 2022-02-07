@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comfortaa:wght@300&family=Montserrat:wght@300&family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+section {
+    margin: 0 auto;
+    margin-top: 100px;
+    font-family: 'Poppins', sans-serif;
+    max-width:fit-content;
+    
+}
+
+.container-update {
+    padding: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+   
+    border-radius: 30px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    width: 100%;
+    font-size: 1.1rem;
+    background-color: gold;
+    font-weight: bolder;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
