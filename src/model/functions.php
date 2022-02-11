@@ -132,4 +132,42 @@ function uploadFile() {
 
     return $newFileName;
 }
+
+
+function regist($registData){
+    global $conn;
+    $username = strtolower(stripslashes($registData["username"]));
+    // mysqlirealescape used agar user can put '' into the databases;
+    $password = mysqli_real_escape_string($conn, $registData["password1"]);
+    $cPassword = mysqli_real_escape_string($conn, $registData["password2"]);
+    // Check username
+    $result = mysqli_query($conn,"SELECT * FROM user WHERE username = '$username'");
+
+    if(mysqli_fetch_assoc($result)) {
+        echo "
+        <script>
+            alert('Username dengan nama tersebut sudah terdaftar.. ');
+        </script>
+        ";
+        return false;
+    }
+
+    // Check password
+    if($password !== $cPassword) {
+        echo "
+        <script>
+        alert('Please check again your password and confirm password must be the same');
+        </script>       
+        ";
+        return false;
+    }
+    // password encryption
+   $passwordEncrypt =  password_hash($password, PASSWORD_DEFAULT);
+
+
+    mysqli_query($conn,"INSERT INTO user values (
+        '','$username', '$passwordEncrypt')");
+
+    return mysqli_affected_rows($conn);
+}
 ?>

@@ -1,5 +1,16 @@
 <?php 
+require_once('./../model/functions.php');
 
+if(isset($_POST["btnRegist"])) {
+    if(regist($_POST) > 0) {
+        echo "
+        <script>
+            alert('data berhasil didaftarkan..');
+            document.location.href = './../../login.php';
+        </script>
+        ";
+    }
+}
 
 
 ?>
@@ -19,7 +30,7 @@
 <main>
     <div id="content">
 
-        <section>
+        <section class="container-signup">
 
         <div class="left-content">
                 <div class="title">
@@ -27,18 +38,43 @@
                             briansdream
                         </h1>
                 </div>
+                
                 <div class="description">
                         <p>
-                            You have to regist data before use this web application.
+                            As a web administrator, you have to regist student data before student use this web application.
                         </p>
                 </div>
         </div>
 
         <div class="right-content">
+            <div class="container-title">
+                <h1>Sign-up</h1>
+            </div>
+            <div class="form-container">
+            <form action="" method="POST">
+                <div>
+                    <input type="text" name="username" placeholder="Masukkan nomor induk mahasiswa" required>
+                </div>
+                <div>
+                    <input type="password" name="password1" placeholder="Masukkan password" required>
+                </div>
+                <div>
+                    <input type="password" name="password2" placeholder="Masukkan konfirmasi password" required>
+                </div>
+                <div>
+                    <button type="submit" name="btnRegist" class="btn-signup">daftar</button>
+                </div>
 
+
+                </form>
+                </div>
+                <a href="./../../login.php" style="text-decoration: none;">
+                <div class="container-login-link">
+                   <p>sudah punya akun..?</p>
+                </div>
+                </a>
         </div>
-
-
+       
         </section>
 
     </div>

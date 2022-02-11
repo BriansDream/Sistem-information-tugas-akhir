@@ -1,3 +1,28 @@
+<?php 
+    require_once('./src/model/functions.php');
+    if(isset($_POST["btnLogin"])) {
+          $nim = $_POST["nim"];
+          $password = $_POST["password"];
+            
+          $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$nim' ");
+        //   Cek nim
+          if(mysqli_num_rows($result) === 1) {
+        //   Cek password
+            $row = mysqli_fetch_assoc($result);
+        
+            if(password_verify($password,$row["password"])) {
+                header("Location: ./src/view/index.php");
+                exit;
+            }
+
+          } 
+
+          $error = true;
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,32 +55,40 @@
                                 <input type="text" placeholder="Nomor induk mahasiswa" class="nim" name="nim">
                             </div> 
                             <div>
-                                <input type="password" placeholder="Nomor induk mahasiswa" class="password" name="password">
+                                <input type="password" placeholder="Please input your password" class="password" name="password">
                             </div> 
-                            <div style="display: flex; align-items: center;">
+                            
+                            <div class="remember-me">
                                 <input type="checkbox" name="remember" id="remember">
                                 &nbsp; 
                                 <p>remember me</p>
                             </div>
+
                             <div>
-                                <button class="btn-login" name="btn-login">Log in</button>
+                                <button class="btn-login" name="btnLogin">Log in</button>
                             </div> 
                         </form>
+
+                        <?php if(isset($error)) : ?>
+                            <div class="container-error">
+                                <p style="font-style: italic; color:red; text-align:center">Wrong!!! Check again your nim or password</p>
+                                </div>
+                        <?php endif ?>
+
                         </div>
-                        <div style="text-align: center; margin-bottom: 10px;">
-                            <a href="" style="text-decoration: none;">
+                        <div class="container-forgot-password">
+                            <a href="">
                                 lupa password?
                             </a>
                         </div>
-                        <div>
+
+                        <div class="container-hr">
                             <hr>
                         </div>
 
-                        <div style="margin-top: 15px;">
+                        <div class="container-signup">
                             <a href="./src/view/register.php">
-                            <button type="submit" style="padding: 10px; font-size: 1.1rem; width: 100%; border: none; 
-                            border-radius: 10px; cursor:pointer;
-                            background-color: rgb(255, 219, 13); font-weight: bold;">Sign Up</button>
+                            <button type="submit" class="btn-signup">Sign Up</button>
                             </a>
                         </div> 
 

@@ -4,13 +4,14 @@
     $datas = showData($query);
   
     if(isset($_POST["btnSearch"])) {
+      
         
         $searchData = $_POST["dataCari"];
         $searchQuery = "SELECT * FROM tugas_akhir 
         WHERE
         nim LIKE '%$searchData%' OR
         nama LIKE '%$searchData%' OR
-        judul LIKE '%$searchData%'        
+        judul LIKE '%$searchData%'          
         ";
         $datas = showData($searchQuery);
     
@@ -30,36 +31,40 @@
 <body>
 
 <header>
-    <div>
-        <h1>Sistem Monitoring Tugas Akhir</h1>
+    <div class="left-content">
+        <h1>Monitoring Tugas Akhir</h1>
     </div>
+    <div class="right-content">
+        <a href="./logout.php">
+        <p>Logout</p>
+        </a>
+    </div>
+
 </header>
 
-<main style="margin-top: 30px;">
-    <div id="content" style="
-    margin:0 auto;
-    display:flex; flex-direction:column;
-    max-width:1440px; width:100%;
-    ">
+<main>
+    <div id="content">
+
         <div class="search-container">
-        <form action="" method="POST"  style="display:flex;">
-            <input autofocus type="text" placeholder="cari data mahasiswa...."
-            style="max-width:1400px; width: 100%; padding:10px; font-size:1.1rem;
-            " name="dataCari"
-            >
-            
-            <button style="padding:10px; border:none;
-            background-color:crimson; color:white;
-            " name="btnSearch">cari</button>
-    </form>    
+      
+        <form action="" method="POST">
+            <div class="left-content">
+            <input type="text" placeholder="cari data mahasiswa...." name="dataCari" autofocus>
+            </div>
+            <div class="right-content">
+            <button type="submit" name="btnSearch" class="btn-search">🔍</button>
+            </div>
+        </form>  
+      
+
     </div>
 
-        <div class="container-content">
-        <?php $id=1; ?>
-<?php foreach($datas as $data): ?>
+        <div class="container-data">
+    <?php $id=1; ?>
+    <?php foreach($datas as $data): ?>
         <section>
             <div class="left-content">
-                <img src="./../../public/img/<?php echo $data['gambar'] ?>" alt="">
+                <img src="./../../public/img/<?php echo $data['gambar'] ?>" alt="<?php echo $data['nama'] ?>">
             </div>
             <div class="right-content">
               
@@ -78,25 +83,19 @@
                     <div>
                         <p>Tanggal : <?php echo $data["tanggal"] ?></p>
                     </div>
-                    <div style="margin-top:5px; display:flex; justify-content:flex-start; align-items:center">
-                        <a href="./add.php" style="text-decoration:none; margin-right:10px;">
+                    <div class="container-functions">
                      
-                            <button style="background-color: rgb(250, 109, 109);
-                            color: white;  cursor:pointer;" type="submit" name="add">add</button>
-                       
+                        <a href="./update.php?name=<?php echo $data["id"] ?>">
+                            <button class="btn-update" type="submit" name="update">update</button>
                         </a>
-                        <a href="./update.php?name=<?php echo $data["id"] ?>" style="text-decoration:none; cursor:pointer; margin-right:10px;">
-                    
-                            <button style="cursor:pointer; background-color: gold; color:black; font-weight:bolder;" type="submit" name="update">update</button>
-                   
-                        </a>
-                        <a href="./delete.php?name=<?php echo $data["id"] ?>" style="text-decoration:none; cursor:pointer">
-                    
-                            <button 
+
+                        <a href="./delete.php?name=<?php echo $data["id"] ?>">
+                            <button class="btn-delete"
                             onclick="confirm('are u sure to delete this data..?')"
-                            style="cursor:pointer; background-color: green; color:white; font-weight:bolder;" type="submit" name="delete">delete</button>
+                            type="submit" name="delete">delete</button>
                       
                         </a>
+
                     </div>
             </div>
         </section>
@@ -104,9 +103,20 @@
 <?php endforeach ?>
 </div>
 
+        <div class="container-add-data">
+
+        <a href="./add.php">
+            <button type="submit">
+                    add data mahasiswa
+            </button>
+        </a>
+
+        </div>
 
     </div>
 </main>
     
+
+
 </body>
 </html>
