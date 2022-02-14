@@ -1,8 +1,15 @@
 <?php 
+session_start();
     require_once('./../model/functions.php');
     $oldId = $_GET['name'];
     $query = "SELECT * FROM tugas_akhir WHERE id = $oldId";
     $oldDatas = showData($query);
+
+
+    if(!isset($_SESSION["login"])) {
+            header("Location: ./../../login.php");
+    }
+
 
     if(isset($_POST["update"])) {
       if(updateData($_POST) > 0) {

@@ -1,5 +1,36 @@
 <?php 
-    require_once('./src/model/functions.php');
+session_start();
+require_once('./src/model/functions.php');
+    // // Cek apakah Cookie dengan key tersebut masih berlaku / true 
+    // if(isset($_COOKIE["remember"])) {
+    //     // Cek apakah value dari cookie tersebut === 'true'
+    //     if($_COOKIE["remember"] === 'true') {
+    //         $_SESSION["login"] = true;
+    //     }   
+    // }
+    
+
+
+    if(isset($_COOKIE["id"]) && isset($_COOKIE["key"])) {
+            $id = $_COOKIE["id"];
+            $key = $_COOKIE["key"];
+
+            $result = mysqli_query($conn,"SELECT username FROM user WHERE id = '$id' ");
+            // Check apakah hash key yang dibuat dengan set cookie sama dengan hash username tersebut
+            if($key === hash('sha256', mysqli_fetch_assoc($result)["username"])) {
+                $_SESSION["login"] = true;
+            }
+
+
+    }
+
+    if(isset($_SESSION["login"])) {
+        header("Location: ./src/view/index.php");
+        exit;
+    }
+
+    
+
     if(isset($_POST["btnLogin"])) {
           $nim = $_POST["nim"];
           $password = $_POST["password"];
@@ -7,10 +38,23 @@
           $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$nim' ");
         //   Cek nim
           if(mysqli_num_rows($result) === 1) {
-        //   Cek password
+
             $row = mysqli_fetch_assoc($result);
-        
+        //   Cek password        
             if(password_verify($password,$row["password"])) {
+                  // set session
+                  $_SESSION["login"] = true;
+
+                if(isset($_POST["remember"])) {
+                    
+                    // setcookie('remember','true', time() + 60);
+                    // Encrypt cookie agar sedikit lebih aman
+                    setcookie('id',$row["id"], time()+60);
+                    setcookie('key', hash('sha256',$row["username"]), time()+60);
+
+                }
+
+              
                 header("Location: ./src/view/index.php");
                 exit;
             }
@@ -61,7 +105,7 @@
                             <div class="remember-me">
                                 <input type="checkbox" name="remember" id="remember">
                                 &nbsp; 
-                                <p>remember me</p>
+                                <label id="remember">remember me</label>
                             </div>
 
                             <div>

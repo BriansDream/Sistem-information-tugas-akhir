@@ -1,8 +1,14 @@
 <?php
+session_start();
     require_once('./../model/functions.php');
     $query = "SELECT * FROM tugas_akhir";
     $datas = showData($query);
-  
+    
+    if(!isset($_SESSION["login"])) {
+        header("Location: ./../../login.php");
+    }
+
+
     if(isset($_POST["btnSearch"])) {
       
         

@@ -1,10 +1,14 @@
 <?php 
 
+    session_start();
     require_once('./../model/functions.php');
+    
+    if(!isset($_SESSION["login"])) {
+        header("Location: ./../../login.php");
+    }
+    
     // When button add clicked or set / true
     if(isset($_POST["add"])) {
-
-        
   
         if(addData($_POST) > 0) {
             echo"
