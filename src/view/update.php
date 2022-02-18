@@ -1,7 +1,7 @@
 <?php 
 session_start();
     require_once('./../model/functions.php');
-    $oldId = $_GET['name'];
+    $oldId = $_GET["name"];
     $query = "SELECT * FROM tugas_akhir WHERE id = $oldId";
     $oldDatas = showData($query);
 

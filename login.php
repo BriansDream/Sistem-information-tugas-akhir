@@ -20,8 +20,6 @@ require_once('./src/model/functions.php');
             if($key === hash('sha256', mysqli_fetch_assoc($result)["username"])) {
                 $_SESSION["login"] = true;
             }
-
-
     }
 
     if(isset($_SESSION["login"])) {

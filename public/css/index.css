@@ -68,7 +68,7 @@ header .right-content a {
 .container-data {
      display: grid;
      grid-template-columns: repeat(2,1fr);
-        grid-column-end: auto;
+        grid-gap: 10px 10px;
 }
 
 .container-data section {
@@ -142,7 +142,15 @@ header .right-content a {
     cursor: pointer;
 }
 
+/* container pagination */
+.container-pagination {
+    display: flex;
 
+}
+
+a {
+    text-decoration: none;
+}
 
 /* last container add data */
 
